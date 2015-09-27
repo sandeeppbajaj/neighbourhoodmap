@@ -48,6 +48,7 @@ function initialize() {
       marker.setAnimation(null);
     } else {
       marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ marker.setAnimation(null); }, 1500);
     }
   }
 }
