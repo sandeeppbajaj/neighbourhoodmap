@@ -1,0 +1,23 @@
+.main-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-container{
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.search-container input{
+  width:100%;
+}
+
+.location-list-container{
+  float:left;
+  width: 15%;
+}
+
+.map-container{
+  float:left;
+  width: 85%;
+}
