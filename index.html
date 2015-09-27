@@ -6,78 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/app.css" media="screen">
     <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <script>
-        function initialize() {
-          var mapProp = {
-            center:new google.maps.LatLng(37.362128,-121.910308),
-            zoom:12,
-            mapTypeId:google.maps.MapTypeId.ROADMAP
-          };
-          var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-          // InfoWindow
-          var contentString = '<div class="infoWindow">'+
-                                '<h1 class="heading">%heading%</h1>'+
-                              '</div>';
-          var infoWindow = new google.maps.InfoWindow({
-            content: ''
-          });
-
-          // Markers
-          var marker1 = new google.maps.Marker({
-            position:{ lat: 37.371392, lng: -121.911432},
-            animation: google.maps.Animation.DROP,
-            map: map,
-            title: '24 Hour Fitness'
-          });
-          var marker2 = new google.maps.Marker({
-            position:{ lat: 37.370132, lng: -121.877108},
-            animation: google.maps.Animation.DROP,
-            map: map,
-            title: 'San Jose Flea Market'
-          });
-
-          // Marker click event listeners
-          marker1.addListener('click', markerClickHandler);
-          marker2.addListener('click', markerClickHandler);
-
-          // Marker Click Handler
-          function markerClickHandler(){
-            toggleInfoWindow(this);
-            toggleBounce(this);
-          };
-
-          // Bounce animation on and off for markers
-          function toggleBounce(marker) {
-            if (marker.getAnimation() !== null) {
-              marker.setAnimation(null);
-            } else {
-              marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-          }
-
-          // Is Info Window Open for a specific marker return true or false
-          google.maps.InfoWindow.prototype.isOpenForMarker = function(marker){
-              try{
-                return infoWindow.getPosition().equals(marker.getPosition());
-              }catch(err){
-                return false;
-              }
-          }
-
-          // Toggle InfoWindow open and close
-          function toggleInfoWindow(marker){
-            if(infoWindow.isOpenForMarker(marker)){
-              infoWindow.close();
-            }else{
-              infoWindow.setContent(contentString.valueOf().replace('%heading%', marker.title));
-              infoWindow.open(map,marker);
-            }
-          }
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    <script src="js/app.js"></script>
   </head>
   <body>
     <div class="main-container">
