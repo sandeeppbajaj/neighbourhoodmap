@@ -31,7 +31,7 @@
     width: 15%;
   }
   .location-list li{
-    margin: auto;
+    margin: 10px 0;
   }
   .map-container{
     width: 85%;
