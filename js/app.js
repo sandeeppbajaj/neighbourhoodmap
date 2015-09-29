@@ -34,6 +34,7 @@ function toggleBounce(marker) {
 }
 
 var Location = function(data){
+  var self = this;
   this.title = ko.observable(data.title);
   this.marker = new google.maps.Marker({
     position: data.position,
@@ -44,15 +45,38 @@ var Location = function(data){
       content: infoWindowTemplate.valueOf().replace('%heading%',data.title)
     })
   });
+  this.isVisible = ko.observable(false);
+
+  this.isVisible.subscribe(function(currentState){
+      if (currentState){
+        self.marker.setVisible(true);
+      } else {
+        self.marker.setVisible(false);
+        self.marker.info.close();
+      }
+  });
+
   google.maps.event.addListener(this.marker, 'click', function() {
       this.marker.info.open(map,this.marker);
       toggleBounce(this.marker);
   }.bind(this));
+
+  this.isVisible(true);
+
+  this.statusCss = ko.computed(function(){
+      if(!self.isVisible()){
+        return 'filtered';
+      }else{
+        return '';
+      }
+  });
 };
 
 
 var ViewModel = function(){
   var self = this;
+
+  this.query = ko.observable('');
 
   this.locationList = ko.observableArray([]);
   initialLocation.forEach(function(locationItem){
@@ -63,6 +87,16 @@ var ViewModel = function(){
     location.marker.info.open(map,location.marker);
     toggleBounce(location.marker);
   };
+
+  self.filterPins = ko.computed(function(){
+    var search = self.query().toLowerCase();
+
+    return ko.utils.arrayFilter(self.locationList(), function(location){
+        var contains = location.title().toLowerCase().indexOf(search) >= 0;
+        location.isVisible(contains);
+        return contains;
+    });
+  });
 };
 
 ko.applyBindings(new ViewModel());

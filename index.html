@@ -9,12 +9,12 @@
   <body>
     <div class="main-container">
       <div class="search-container">
-        <input id="search-input" type="text" name="name" value="" placeholder="search">
+        <input id="search-input" type="text" name="name" data-bind="value: query, valueUpdate: 'keyup'" placeholder="search">
       </div>
 
       <div class="location-list-container">
         <ul class="location-list"  data-bind="foreach: locationList">
-          <li data-bind="text: title,click: $parent.activateLocation"></li>
+          <li data-bind="text: title, click: $parent.activateLocation, css: statusCss"></li>
         </ul>
       </div>
 

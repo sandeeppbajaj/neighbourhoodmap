@@ -25,6 +25,10 @@
   width: 100%;
 }
 
+.filtered{
+  display: none;
+}
+
 /* Rendering List and Map side by side when on big screen*/
 @media only screen and (min-width: 1051px) {
   .location-list-container{
