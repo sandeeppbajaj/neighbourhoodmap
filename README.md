@@ -1,6 +1,6 @@
 # Neighbourhoodmap
 
-1. Download the code and open in index.html file in any modern browser
+1. Download the code and open index.html file in any modern browser
 2. Once opened, you will see a list of locations around San Jose airport on the 
    left and google map on the right and a search box in the top.
    Note: list not visible on smaller screens
