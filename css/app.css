@@ -16,6 +16,7 @@
 .location-list li{
   word-wrap: break-word;
   margin: 15px 0;
+  cursor: pointer;
 }
 
 .location-list-container{

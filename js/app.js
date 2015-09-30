@@ -20,7 +20,6 @@ function toggleBounce(marker) {
    marker.setAnimation(null);
  } else {
    marker.setAnimation(google.maps.Animation.BOUNCE);
-   setTimeout(function(){ marker.setAnimation(null); }, 1500);
  }
 }
 
@@ -69,7 +68,7 @@ var ViewModel = function(){
   this.query = ko.observable('');
 
   this.locationList = ko.observableArray([]);
-
+  this.selectedLocation = ko.observable('Dummy');
   var foursquareBaseURL = 'https://api.foursquare.com/v2/venues/explore?v=20150929';
 	var clientId = 'client_id=YBFLZVYWIMZXWHCS2JYTH1BJ1Z31VKNUN5HVXGBB5KJFIDFI'
   var clientSecret= 'client_secret=KKCUUPPCYDW3ABQDTKGKBHWZ2OIYGLDKO0FNBNMPSP5RNCAM';
@@ -85,16 +84,22 @@ var ViewModel = function(){
       });
     },
     error: function(){
-
+      alert('Failed to get locations for the neighbourhood');
     }
   });
 
   this.activateLocation = function(location){
+    var currentLocation = self.selectedLocation();
+    if(currentLocation != 'Dummy'){
+      currentLocation.marker.setAnimation(null);
+      currentLocation.marker.info.close();
+    }
+    self.selectedLocation(location);
     location.marker.info.open(map,location.marker);
     toggleBounce(location.marker);
   };
 
-  self.filterPins = ko.computed(function(){
+  self.filterLocations = ko.computed(function(){
     var search = self.query().toLowerCase();
 
     return ko.utils.arrayFilter(self.locationList(), function(location){
