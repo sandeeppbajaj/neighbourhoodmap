@@ -9,15 +9,6 @@ var mapProp = {
 // Render Map with properties
 var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-//Initial Map Locations
-var initialLocation = [
-  {title: '24 Hour Fitness', position:{lat: 37.371392, lng: -121.911432}},
-  {title: 'San Jose Flea Market',position:{lat: 37.370132, lng: -121.877108}},
-  {title: 'California\'s Great America',position:{lat: 37.397946, lng: -121.974294}},
-  {title: 'Great Mall',position:{lat: 37.416385, lng: -121.897841}},
-  {title: 'West Field Valley Fair Mall',position:{lat: 37.325327, lng: -121.94538}}
-];
-
 // InfoWindow Template
 var infoWindowTemplate = '<div class="infoWindow">'+
                           '<h3 class="heading">%heading%</h3>'+
@@ -33,16 +24,16 @@ function toggleBounce(marker) {
  }
 }
 
-var Location = function(data){
+var Location = function(name,lat,lng){
   var self = this;
-  this.title = ko.observable(data.title);
+  this.title = ko.observable(name);
   this.marker = new google.maps.Marker({
-    position: data.position,
+    position: {lat: lat, lng: lng},
     animation: google.maps.Animation.DROP,
     map: map,
-    title: data.title,
+    title: name,
     info: new google.maps.InfoWindow({
-      content: infoWindowTemplate.valueOf().replace('%heading%',data.title)
+      content: infoWindowTemplate.valueOf().replace('%heading%',name)
     })
   });
   this.isVisible = ko.observable(false);
@@ -72,15 +63,30 @@ var Location = function(data){
   });
 };
 
-
 var ViewModel = function(){
   var self = this;
 
   this.query = ko.observable('');
 
   this.locationList = ko.observableArray([]);
-  initialLocation.forEach(function(locationItem){
-    self.locationList.push(new Location(locationItem));
+
+  var foursquareBaseURL = 'https://api.foursquare.com/v2/venues/explore?v=20150929';
+	var clientId = 'client_id=YBFLZVYWIMZXWHCS2JYTH1BJ1Z31VKNUN5HVXGBB5KJFIDFI'
+  var clientSecret= 'client_secret=KKCUUPPCYDW3ABQDTKGKBHWZ2OIYGLDKO0FNBNMPSP5RNCAM';
+	var latlng = 'll=37.362128,-121.910308';
+  var requestUrl = foursquareBaseURL + '&' + clientId + '&' + clientSecret + '&' + latlng;
+  $.ajax({
+    url: requestUrl,
+    success: function(data){
+      var items = data.response.groups[0].items;
+      items.forEach(function(item){
+        var venue = item.venue;
+        self.locationList.push(new Location(venue.name, venue.location.lat, venue.location.lng));
+      });
+    },
+    error: function(){
+
+    }
   });
 
   this.activateLocation = function(location){
