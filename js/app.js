@@ -84,16 +84,16 @@ var ViewModel = function(){
           var venue = item.venue;
           var info = infoWindowTemplate.valueOf()
                     .replace('%heading%', venue.name)
-                    .replace('%phone%', venue.contact.formattedPhone)
-                    .replace('%address1%', venue.location.formattedAddress[0])
-                    .replace('%address2%', venue.location.formattedAddress[1])
+                    .replace('%phone%', venue.contact.formattedPhone || '')
+                    .replace('%address1%', venue.location.formattedAddress[0] || '')
+                    .replace('%address2%', venue.location.formattedAddress[1] || '')
                     .replace('%website%', venue.url)
                     .replace('%website%', venue.url)
-                    .replace('%rating%', venue.rating);
+                    .replace('%rating%', venue.rating || '');
 
           var location = new Location(venue.name, venue.location.lat, venue.location.lng, info);
           google.maps.event.addListener(location.marker, 'click', function() {
-              self.activateLocation(location);
+              self.selectLocation(location);
           }.bind(location));
 
           self.locationList.push(location);
@@ -104,15 +104,15 @@ var ViewModel = function(){
       }
     });
 
-    this.activateLocation = function(location){
-      var currentLocation = self.selectedLocation();
-      if(currentLocation != 'Dummy'){
-        toggleBounce(currentLocation.marker);
-        currentLocation.marker.info.close();
+    this.selectLocation = function(location){
+      if(self.selectedLocation() != 'Dummy' && self.selectedLocation() != location){
+        toggleBounce(self.selectedLocation().marker);
+        self.selectedLocation().marker.info.close();
       }
-      self.selectedLocation(location);
       location.marker.info.open(map,location.marker);
-      toggleBounce(location.marker);
+      if(self.selectedLocation() != location)
+        toggleBounce(location.marker);
+      self.selectedLocation(location);
     };
 
     self.filterLocations = ko.computed(function(){
