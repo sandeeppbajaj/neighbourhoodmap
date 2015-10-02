@@ -1,12 +1,23 @@
-// Map Properties (In future, properties can be made dynamic with user inputs)
-var mapProp = {
-    center: new google.maps.LatLng(37.362128, -121.910308),
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-};
 
-// Render Map with properties
-var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+// Variable to hold map object
+var map;
+
+// Map center latitude and longitude
+var mapCenterLat = 37.362128,
+    mapCenterLng = -121.910308;
+
+// Initialization to setup map
+function init(){
+  // Map Properties (In future, properties can be made dynamic with user inputs)
+  var mapProp = {
+      center: new google.maps.LatLng(mapCenterLat, mapCenterLng),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  // Render Map with properties
+  map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+};
 
 // InfoWindow Template
 var infoWindowTemplate = '<div class="infoWindow">' +
@@ -86,7 +97,7 @@ var ViewModel = function() {
     var foursquareBaseURL = 'https://api.foursquare.com/v2/venues/explore?v=20150929';
     var clientId = 'client_id=YBFLZVYWIMZXWHCS2JYTH1BJ1Z31VKNUN5HVXGBB5KJFIDFI';
     var clientSecret = 'client_secret=KKCUUPPCYDW3ABQDTKGKBHWZ2OIYGLDKO0FNBNMPSP5RNCAM';
-    var latlng = 'll=37.362128,-121.910308';
+    var latlng = 'll=' + mapCenterLat + ',' +  mapCenterLng;
     var requestUrl = foursquareBaseURL + '&' + clientId + '&' + clientSecret + '&' + latlng;
 
     // Call to get dynamic location/venues using four square API
@@ -148,4 +159,5 @@ var ViewModel = function() {
     });
 };
 
+init();
 ko.applyBindings(new ViewModel());
