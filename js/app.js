@@ -103,8 +103,8 @@ var ViewModel = function() {
                     .replace('%phone%', venue.contact.formattedPhone || '')
                     .replace('%address1%', venue.location.formattedAddress[0] || '')
                     .replace('%address2%', venue.location.formattedAddress[1] || '')
-                    .replace('%website%', venue.url)
-                    .replace('%website%', venue.url)
+                    .replace('%website%', venue.url || '#')
+                    .replace('%website%', venue.url || '')
                     .replace('%rating%', venue.rating || '');
 
                 // Creating location object
