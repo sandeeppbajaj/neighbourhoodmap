@@ -9,20 +9,18 @@
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="search-container">
-            <input id="search-input" type="text" name="name" data-bind="value: query, valueUpdate: 'keyup'" placeholder="search">
-        </div>
+    <div class="search-container">
+        <input id="search-input" type="text" name="name" data-bind="value: query, valueUpdate: 'keyup'" placeholder="search">
+    </div>
 
-        <div class="location-list-container">
-            <ul class="location-list" data-bind="foreach: locationList">
-                <li data-bind="text: title, click: $parent.selectLocation, css: statusCss"></li>
-            </ul>
-        </div>
+    <div class="location-list-container">
+        <ul class="location-list" data-bind="foreach: locationList">
+            <li data-bind="text: title, click: $parent.selectLocation, css: statusCss"></li>
+        </ul>
+    </div>
 
-        <div class="map-container">
-            <div id="googleMap" class="map"></div>
-        </div>
+    <div class="map-container">
+        <div id="googleMap" class="map"></div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js"></script>

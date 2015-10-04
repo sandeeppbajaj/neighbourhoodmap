@@ -12,12 +12,13 @@ function init(){
   var mapProp = {
       center: new google.maps.LatLng(mapCenterLat, mapCenterLng),
       zoom: 12,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
   };
 
   // Render Map with properties
   map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-};
+}
 
 // InfoWindow Template
 var infoWindowTemplate = '<div class="infoWindow">' +

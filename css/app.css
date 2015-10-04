@@ -1,55 +1,65 @@
-.main-container {
-    display: flex;
-    flex-wrap: wrap;
+html,
+body,
+.map-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
-
+.map-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.map {
+    width: 100%;
+    height: 100%;
+}
 .search-container {
     width: 100%;
-    margin-bottom: 5px;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    position: absolute;
 }
-
 .search-container input {
     height: 20px;
     width: 100%;
+    line-height: 20px;
+    font-size: 20px;
 }
-
+.location-list-container {
+    top: 40px;
+    right: 10px;
+    z-index: 5;
+    position: absolute;
+    background: #ffffff;
+    max-height: 150px;
+    width: 200px;
+    overflow-y: auto;
+}
+.location-list-container .location-list {
+    list-style-type: none;
+    padding: 0 5px;
+    margin: 0;
+}
 .location-list li {
     word-wrap: break-word;
     margin: 15px 0;
     cursor: pointer;
 }
-
-.location-list-container {
-    display: none;
-}
-
-.map-container {
-    width: 100%;
-}
-
-.map {
-    width: 100%;
-    height: 600px;
-}
-
 .filtered {
     display: none;
 }
 
-/* Rendering List and Map side by side when on big screen*/
 @media only screen and (min-width: 1051px) {
     .location-list-container {
         display: block;
         width: 15%;
-        height: 600px;
-        overflow-y: auto;
+        max-height: 500px;
+        border-radius: 5px;
     }
-
     .location-list li {
         margin: 10px 0;
     }
-
-    .map-container {
-        width: 85%;
-    };
 }
