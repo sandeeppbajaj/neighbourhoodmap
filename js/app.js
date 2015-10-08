@@ -158,7 +158,11 @@ var ViewModel = function() {
             return contains;
         });
     });
+
+    // Toggle the list view
+    this.toggleList = function() {
+        $('.location-list-container').toggleClass('toggled');
+    };
 };
 
-init();
 ko.applyBindings(new ViewModel());

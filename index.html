@@ -6,14 +6,18 @@
     <title>Neighbourhood Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/app.css" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div class="search-container">
         <input id="search-input" type="text" name="name" data-bind="value: query, valueUpdate: 'keyup'" placeholder="search">
     </div>
-
-    <div class="location-list-container">
+    <div class="list-button-container">
+        <button class="list-button" data-bind="click: toggleList"><i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <div class="location-list-container toggled">
         <ul class="location-list" data-bind="foreach: locationList">
             <li data-bind="text: title, click: $parent.selectLocation, css: statusCss"></li>
         </ul>
@@ -23,7 +27,7 @@
         <div id="googleMap" class="map"></div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?callback=init" async defer></script>
     <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
 </body>
