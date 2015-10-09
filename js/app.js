@@ -46,10 +46,10 @@ var Location = function(name, lat, lng, info) {
     var self = this;
 
     // Using title as name for the location
-    this.title = ko.observable(name);
+    self.title = ko.observable(name);
 
     //Creating map marker
-    this.marker = new google.maps.Marker({
+    self.marker = new google.maps.Marker({
         position: {
             lat: lat,
             lng: lng
@@ -63,10 +63,10 @@ var Location = function(name, lat, lng, info) {
     });
 
     // Used to decide visibility of location
-    this.isVisible = ko.observable(true);
+    self.isVisible = ko.observable(true);
 
     // Based on isVisible value show and hide location marker and close infowindow
-    this.isVisible.subscribe(function(currentState) {
+    self.isVisible.subscribe(function(currentState) {
         if (currentState) {
             self.marker.setVisible(true);
             self.statusCss('');
@@ -78,7 +78,7 @@ var Location = function(name, lat, lng, info) {
     });
 
     // Css class for location list item, if filtered then CSS hides it in the list
-    this.statusCss = ko.observable('');
+    self.statusCss = ko.observable('');
 };
 
 var ViewModel = function() {
